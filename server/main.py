@@ -28,7 +28,7 @@ class Dashboard:
         def _on_change_value(event: ntcore.Event):
             with self.lock:
                 print(event.data, event.data.value)
-                self.websocket.send_message_to_clients(event.data.value)
+             
 
         def _on_pub(event: ntcore.Event):
 
