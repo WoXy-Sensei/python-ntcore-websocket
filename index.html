@@ -11,11 +11,12 @@
         var ws = new WebSocket("ws://localhost:8000");
 
         ws.onopen = function(event) {
-        console.log("conntected");
+            console.log("conntected");
         }
 
         ws.onmessage = function(event) {
-            console.log(event.data);
+            var obj = JSON.parse(event.data);
+            console.log(obj);
         }
     </script>
     

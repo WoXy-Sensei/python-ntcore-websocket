@@ -2,23 +2,25 @@ import threading
 import signal
 import sys
 from dashboard import Dashboard
-from websocket import WebSocketServer
-
-
-
+from websocket.websocketserver import WebSocketServer
 
 def signal_handler(sig, frame):
     print("prgoram is closing")
     sys.exit(0)
 
-signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == "__main__":
-    dashboard = Dashboard()
-    websocket = WebSocketServer()
-    t1 = threading.Thread(target=websocket.start)
-    t1.start()
-    t2 = threading.Thread(target=dashboard.start)
-    t2.start()
-  
+    threads = []
+
+    threads.append(threading.Thread(target=WebSocketServer().start))
+    threads.append(threading.Thread(target=Dashboard().start))
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
+
+    
+    signal.signal(signal.SIGINT, signal_handler)
     

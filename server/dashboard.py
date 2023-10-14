@@ -2,8 +2,8 @@ import ntcore
 import threading
 import os
 from dotenv import load_dotenv
-from websocket import WebSocketServer
-
+from websocket.websocketserver import WebSocketServer
+from utils.printServer import printServer
 
 class Dashboard:
     def __init__(self) -> None:
@@ -17,9 +17,9 @@ class Dashboard:
 
         def _connect_cb(event: ntcore.Event):
             if event.is_(ntcore.EventFlags.kConnected):
-                print("Connected to", event.data.remote_id)
+                printServer(f"Connected to {event.data.remote_id}")
             elif event.is_(ntcore.EventFlags.kDisconnected):
-                print("Disconnected from", event.data.remote_id)
+                printServer(f"Disconnected from {event.data.remote_id}")
 
         self.connListenerHandle = inst.addConnectionListener(True, _connect_cb)
 
@@ -27,18 +27,22 @@ class Dashboard:
 
         def _on_change_value(event: ntcore.Event):
             with self.lock:
-                WebSocketServer.broadcast("test")
-                print(event.data, event.data.value)
+                printServer(f"Change value : {event.data.value.value()}")
+        
+                WebSocketServer.broadcast({
+                    "name" : str(event.data.topic.getName()),
+                    "value" : str(event.data.value.value()),
+                    "type" : str(event.data.value.type())
+                })
+
 
         def _on_pub(event: ntcore.Event):
 
             if event.is_(ntcore.EventFlags.kPublish):
-                print(event.data.name)
-                self.sub = datatable.getDoubleTopic(
-                    event.data.name.split('/')[-1]).subscribe(0.0)
+                printServer(f"Publishing : {event.data.name}")
+                self.sub = datatable.getEntry(event.data.name.split('/')[-1])
                 self.values.append(self.sub)
-                inst.addListener(
-                    self.sub, ntcore.EventFlags.kValueAll, _on_change_value)
+                inst.addListener(self.sub, ntcore.EventFlags.kValueAll, _on_change_value)
 
         self.topicListenerHandle = inst.addListener(
             [datatable.getPath() + "/"], ntcore.EventFlags.kTopic, _on_pub
@@ -48,7 +52,7 @@ class Dashboard:
         pass
 
     def start(self):
-        print("Dashboard başlatıldı")
+        printServer("start dashboard")
 
     def close(self):
         inst = ntcore.NetworkTableInstance.getDefault()
