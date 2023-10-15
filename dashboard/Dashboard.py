@@ -29,12 +29,12 @@ class Dashboard:
         def _on_change_value(event: ntcore.Event):
 
             with self.lock:
-                DashboardManagement.set_entry("test3",354)
+                
                 name = str(event.data.topic.getName().split('/')[-1])
                 value = event.data.value.value()
                 type = str(event.data.topic.getTypeString())
                
-                # printServer(f"{name} | Change value : {event.data.value.value()}")
+                printServer(f"{name} | Change value : {event.data.value.value()}")
         
                 WebSocketManagement.broadcast({
                     "name" : name,

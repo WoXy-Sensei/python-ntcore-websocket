@@ -4,7 +4,6 @@ class DashboardManagement:
     @staticmethod
     def add_entry(entry):
         name = str(entry.getName().split('/')[-1])
-
         DashboardManagement.entries[name] = entry
         return entry
 
