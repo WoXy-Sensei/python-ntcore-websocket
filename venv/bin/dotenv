@@ -1,4 +1,4 @@
-#!/media/codedisk/FRC_CODES/testdashboard/server/venv/bin/python
+#!/media/codedisk/FRC_CODES/testdashboard/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
