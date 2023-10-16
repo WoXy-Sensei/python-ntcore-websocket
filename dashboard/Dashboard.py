@@ -1,18 +1,19 @@
 import ntcore
 import threading
-import os
-from dotenv import load_dotenv
 from websocket.WebSocketManagement import WebSocketManagement
 from utils.printServer import printServer
 from dashboard.DashboardManagement import DashboardManagement
 
 class Dashboard:
-    def __init__(self) -> None:
-        load_dotenv()
+    def __init__(self,client_name,host_name,table_name) -> None:
+        
+        self.client_name = client_name
+        self.host_name = host_name
+        self.table_name = table_name
 
         inst = ntcore.NetworkTableInstance.getDefault()
-        inst.startClient4(os.getenv("client_name"))
-        inst.setServer(os.getenv("host_name"))
+        inst.startClient4(self.client_name)
+        inst.setServer(self.host_name)
         self.lock = threading.Lock()
     
 
@@ -24,7 +25,7 @@ class Dashboard:
 
         self.connListenerHandle = inst.addConnectionListener(True, _connect_cb)
 
-        datatable = inst.getTable(os.getenv("table_name"))
+        datatable = inst.getTable(self.table_name)
 
         def _on_change_value(event: ntcore.Event):
 
