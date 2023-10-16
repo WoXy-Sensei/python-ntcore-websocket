@@ -49,7 +49,6 @@ class Dashboard:
             if event.is_(ntcore.EventFlags.kPublish):
                 printServer(f"Publishing : {event.data.name}")
                 self.entry = datatable.getEntry(event.data.name.split('/')[-1])
-                self.entry.setInteger(412341234123)
                 DashboardManagement.add_entry(self.entry)
 
                 inst.addListener(self.entry, ntcore.EventFlags.kValueAll, _on_change_value)
