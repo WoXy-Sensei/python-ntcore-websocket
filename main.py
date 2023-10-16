@@ -15,11 +15,12 @@ if __name__ == "__main__":
     load_dotenv()
 
     threads = []
-    
-    dashboard = Dashboard(os.getenv("client_name"),os.getenv("host_name"),os.getenv("table_name"))
 
-    threads.append(threading.Thread(target=WebSocketServer().start))
-    threads.append(threading.Thread(target=Dashboard().start))
+    dashboard = Dashboard(os.getenv("client_name"),os.getenv("host_name"),os.getenv("table_name"))
+    websocket = WebSocketServer()
+    
+    threads.append(threading.Thread(target=websocket.start))
+    threads.append(threading.Thread(target= dashboard.start ))
 
     for thread in threads:
         thread.start()
