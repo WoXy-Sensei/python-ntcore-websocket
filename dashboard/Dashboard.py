@@ -7,7 +7,7 @@ from models.Entry import Entry
 
 class Dashboard:
     def __init__(self,client_name,host_name,table_name) -> None:
-        
+
         self.client_name = client_name
         self.host_name = host_name
         self.table_name = table_name
@@ -40,8 +40,7 @@ class Dashboard:
 
                 entry = Entry(name,value,type)
 
-                WebSocketManagement.broadcast(entry.getByJson())
-
+                WebSocketManagement.broadcast(entry)
 
         def _on_pub(event: ntcore.Event):
 
@@ -60,7 +59,7 @@ class Dashboard:
         pass
 
     def start(self):
-        printServer("Start dashboard")
+        printServer("Start Dashboard")
 
     def close(self):
         inst = ntcore.NetworkTableInstance.getDefault()
