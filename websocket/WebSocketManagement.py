@@ -1,5 +1,5 @@
 from dashboard.DashboardManagement import DashboardManagement  
-import json
+from models.Entry import Entry
 
 class WebSocketManagement:
     clients = []
@@ -14,11 +14,7 @@ class WebSocketManagement:
             entryValue = None
             entryType = value.getTopic().getTypeString()
            
-            entry = {
-                "name" : entryName,
-                "value" : entryValue,
-                "type" : entryType
-            }
+            entry = Entry(entryName,entryValue,entryType)
             
             WebSocketManagement.broadcast(entry);
         
@@ -34,7 +30,7 @@ class WebSocketManagement:
         return WebSocketManagement.clients
     
     @staticmethod
-    def broadcast(message):
+    def broadcast(entry : Entry):
         for client in WebSocketManagement.get_clients():
-            json_string = json.dumps(message)
-            client.sendMessage(json_string)
+            entry = entry.getByJson()
+            client.sendMessage(entry)

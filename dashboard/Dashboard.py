@@ -3,6 +3,7 @@ import threading
 from websocket.WebSocketManagement import WebSocketManagement
 from utils.printServer import printServer
 from dashboard.DashboardManagement import DashboardManagement
+from models.Entry import Entry
 
 class Dashboard:
     def __init__(self,client_name,host_name,table_name) -> None:
@@ -15,7 +16,7 @@ class Dashboard:
         inst.startClient4(self.client_name)
         inst.setServer(self.host_name)
         self.lock = threading.Lock()
-    
+
 
         def _connect_cb(event: ntcore.Event):
             if event.is_(ntcore.EventFlags.kConnected):
@@ -36,12 +37,10 @@ class Dashboard:
                 type = str(event.data.topic.getTypeString())
                
                 printServer(f"{name} | Change value : {event.data.value.value()}")
-        
-                WebSocketManagement.broadcast({
-                    "name" : name,
-                    "value" : value,
-                    "type" : type
-                })
+
+                entry = Entry(name,value,type)
+
+                WebSocketManagement.broadcast(entry.getByJson())
 
 
         def _on_pub(event: ntcore.Event):
