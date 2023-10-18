@@ -1,4 +1,4 @@
-from dashboard.DashboardManagement import DashboardManagement  
+from networktable.NetworkTableManagement import DashboardManagement  
 from models.Entry import Entry
 
 class WebSocketManagement:

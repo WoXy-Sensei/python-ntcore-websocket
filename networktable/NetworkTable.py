@@ -2,10 +2,10 @@ import ntcore
 import threading
 from websocket.WebSocketManagement import WebSocketManagement
 from utils.printServer import printServer
-from dashboard.DashboardManagement import DashboardManagement
+from networktable.NetworkTableManagement import DashboardManagement
 from models.Entry import Entry
 
-class Dashboard:
+class NeworkTable:
     def __init__(self,client_name,host_name,table_name) -> None:
 
         self.client_name = client_name

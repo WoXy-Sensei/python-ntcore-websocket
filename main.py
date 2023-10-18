@@ -2,7 +2,7 @@ import threading
 import signal
 import sys
 import os
-from dashboard.Dashboard import Dashboard
+from networktable.NetworkTable import Dashboard
 from websocket.WebSocketServer import WebSocketServer
 from dotenv import load_dotenv
 
