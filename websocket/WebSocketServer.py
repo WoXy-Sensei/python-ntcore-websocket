@@ -1,8 +1,6 @@
 from SimpleWebSocketServer import SimpleWebSocketServer
 from websocket.WebSocketHandler import WebSocketHandler
 from dotenv import load_dotenv
-import os
-import json
 from utils.printServer import printServer
 
 class WebSocketServer:

@@ -60,7 +60,7 @@ class NetworkTable:
         pass
 
     def start(self):
-        printServer("Start Dashboard")
+        printServer("Start NetworkTable")
 
     def close(self):
         inst = ntcore.NetworkTableInstance.getDefault()
