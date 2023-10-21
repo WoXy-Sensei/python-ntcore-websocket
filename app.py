@@ -9,7 +9,7 @@ def start_networktable():
     networktable.start()
 
 def start_websocket():
-    websocket = WebSocketServer()
+    websocket = WebSocketServer(os.getenv("ws_host"), os.getenv("ws_port"))
     websocket.start()
 
 if __name__ == "__main__":

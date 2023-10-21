@@ -7,12 +7,15 @@ from utils.printServer import printServer
 
 class WebSocketServer:
     
-    def __init__(self) -> None:
+    def __init__(self,ws_host,ws_port) -> None:
+        self.ws_host = ws_host
+        self.ws_port = ws_port
+
         load_dotenv()
 
     def start(self):
         printServer("Start websocket server")
-        self.server = SimpleWebSocketServer(os.getenv("ws_host"), os.getenv("ws_port"), WebSocketHandler)
+        self.server = SimpleWebSocketServer(self.ws_host,self.ws_port, WebSocketHandler)
         self.server.serveforever()
 
     def stop(self):
