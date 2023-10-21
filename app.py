@@ -1,7 +1,7 @@
 import os
 from networktable.NetworkTable import NetworkTable
 from websocket.WebSocketServer import WebSocketServer
-import multiprocessing
+import threading
 import sys
 import signal
 
@@ -20,8 +20,8 @@ def signal_handler(sig, frame):
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
-    networktable_process = multiprocessing.Process(target=start_networktable)
-    websocket_process = multiprocessing.Process(target=start_websocket)
+    networktable_process = threading.Thread(target=start_networktable)
+    websocket_process = threading.Thread(target=start_websocket)
 
     networktable_process.start()
     websocket_process.start()
