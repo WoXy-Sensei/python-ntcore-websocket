@@ -4,6 +4,7 @@ from websocket.WebSocketManagement import WebSocketManagement
 from utils.printServer import printServer
 from networktable.NetworkTableManagement import NetworkTableManagement
 from models.Entry import Entry
+import eel
 
 class NetworkTable:
     def __init__(self,client_name,host_name,table_name) -> None:
