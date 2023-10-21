@@ -2,7 +2,7 @@ import threading
 import signal
 import sys
 import os
-from networktable.NetworkTable import Dashboard
+from networktable.NetworkTable import NeworkTable
 from websocket.WebSocketServer import WebSocketServer
 from dotenv import load_dotenv
 
@@ -16,11 +16,11 @@ if __name__ == "__main__":
 
     threads = []
 
-    dashboard = Dashboard(os.getenv("client_name"),os.getenv("host_name"),os.getenv("table_name"))
+    networktable = NeworkTable(os.getenv("client_name"),os.getenv("host_name"),os.getenv("table_name"))
     websocket = WebSocketServer()
 
     threads.append(threading.Thread(target= websocket.start ))
-    threads.append(threading.Thread(target= dashboard.start ))
+    threads.append(threading.Thread(target= networktable.start ))
 
     for thread in threads:
         thread.start()

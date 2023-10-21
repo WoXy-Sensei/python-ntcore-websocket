@@ -2,10 +2,10 @@ import ntcore
 import threading
 from websocket.WebSocketManagement import WebSocketManagement
 from utils.printServer import printServer
-from networktable.NetworkTableManagement import DashboardManagement
+from networktable.NetworkTableManagement import NetworkTableManagement
 from models.Entry import Entry
 
-class NeworkTable:
+class NetworkTable:
     def __init__(self,client_name,host_name,table_name) -> None:
 
         self.client_name = client_name
@@ -47,7 +47,7 @@ class NeworkTable:
             if event.is_(ntcore.EventFlags.kPublish):
                 printServer(f"Publishing : {event.data.name}")
                 self.entry = datatable.getEntry(event.data.name.split('/')[-1])
-                DashboardManagement.add_entry(self.entry)
+                NetworkTableManagement.add_entry(self.entry)
 
                 inst.addListener(self.entry, ntcore.EventFlags.kValueAll, _on_change_value)
 

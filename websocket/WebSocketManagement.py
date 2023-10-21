@@ -1,4 +1,4 @@
-from networktable.NetworkTableManagement import DashboardManagement  
+from networktable.NetworkTableManagement import NetworkTableManagement  
 from models.Entry import Entry
 
 class WebSocketManagement:
@@ -7,7 +7,7 @@ class WebSocketManagement:
     @staticmethod
     def add_client(client):
         WebSocketManagement.clients.append(client)
-        entries = DashboardManagement.get_entries()
+        entries = NetworkTableManagement.get_entries()
         
         for key, value in entries.items():
             entryName = key
