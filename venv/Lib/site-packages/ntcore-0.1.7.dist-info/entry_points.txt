@@ -1,0 +1,3 @@
+[console_scripts]
+ntcore = ntcore.cli.workflow:cli
+
